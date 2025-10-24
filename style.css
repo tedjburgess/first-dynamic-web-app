@@ -59,6 +59,12 @@ footer {
 
 /*Posts*/
 
+.posts-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .posts-main {
     display: flex;
     flex-direction: column;
@@ -104,5 +110,22 @@ footer {
 
 .comment p {
     margin: 0;
+}
+
+/*load more button*/
+#load-more {
+    display: block;
+    width: 60%;
+    max-width: 300px;
+    min-width: 180px;
+    margin: 20px auto;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
