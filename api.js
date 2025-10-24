@@ -25,7 +25,7 @@ async function fetchPost(postId) {
 
 async function fetchAllPosts(limit = 10, skip = 0) {
   try {
-    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId`; /*change back if needed 'https://dummyjson.com/posts'*/
+    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId,body`; /*change back if needed 'https://dummyjson.com/posts'*/
 
     const response = await fetch(url);
     const data = await response.json();
