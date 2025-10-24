@@ -1,5 +1,6 @@
+
+// Highlights active link automatically
 function highlightActive() {
-  // Highlight active link automatically
   const currentPage = window.location.pathname.split("/").pop();
   const navLinks = document.querySelectorAll(".nav-bar a");
 
@@ -10,7 +11,7 @@ function highlightActive() {
   });
 
 }
-
+// Adds header to each page
 function addNavigation() {
   const spot = document.getElementsByTagName('header');
   const getHeader = spot[0];

@@ -1,3 +1,13 @@
+let currentSkip = 0;
+const limit = 10;
+
+function loadMorePosts() {
+  currentSkip += limit;
+  allPostsHtml();
+}
+
+document.getElementById("load-more").addEventListener("click", loadMorePosts);
+
 async function fetchPost(postId) {
   try {
     // Use template literals instead of concat()
@@ -13,9 +23,9 @@ async function fetchPost(postId) {
   }
 }
 
-async function fetchAllPosts() {
+async function fetchAllPosts(limit = 10, skip = 0) {
   try {
-    const url = 'https://dummyjson.com/posts';
+    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId`; /*change back if needed 'https://dummyjson.com/posts'*/
 
     const response = await fetch(url);
     const data = await response.json();
@@ -98,7 +108,7 @@ async function fetchPostInfo(postId) {
 
 async function allPostsHtml() {
   try {
-    const allPostsObject = await fetchAllPosts();
+    const allPostsObject = await fetchAllPosts(limit, currentSkip);
     const postsArray = allPostsObject.posts;
 
     const mainContainer = document.getElementsByClassName("posts-main")[0];
