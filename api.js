@@ -125,11 +125,11 @@ async function allPostsHtml() {
       bodyElement.textContent = element.body;
       /* Username */
       const userId = element.userId;
-      const userNameElement = document.createElement("p");
-      userNameElement.classList.add("username");
+      const userNameButton = document.createElement("button");
+      userNameButton.classList.add("username");
       fetchUserName(userId)
         .then(username => {
-          userNameElement.textContent = username;
+          userNameButton.textContent = username;
         })
       /* Reactions */
       const reactionsDiv = document.createElement("div");
@@ -157,14 +157,15 @@ async function allPostsHtml() {
             const commentsElement = document.createElement("p");
             commentsElement.textContent = comment.body;
             /* Username */
-            const commenterElement = document.createElement("p");
-            commenterElement.textContent = comment.user.username;
+            const commenterButton = document.createElement("button");
+            commenterButton.textContent = comment.user.username;
+            commenterButton.classList.add("username");
             /* Comment reactions */
             const commentReactionsElement = document.createElement("p"); /* Comment element */
             commentReactionsElement.textContent = `👍${comment.likes}`;
             commentReactionsElement.classList.add("comment-reactions");
             /* Appending to comments div */
-            commentDiv.appendChild(commenterElement); /* Username */
+            commentDiv.appendChild(commenterButton); /* Username */
             commentDiv.appendChild(commentsElement); /* Comment text */
             commentDiv.appendChild(commentReactionsElement); /* Reactions */
             commentsDiv.appendChild(commentDiv);
@@ -175,7 +176,7 @@ async function allPostsHtml() {
       /* Appending to the object div */
       divElement.appendChild(titleElement);
       divElement.appendChild(bodyElement);
-      divElement.appendChild(userNameElement);
+      divElement.appendChild(userNameButton);
       divElement.appendChild(reactionsDiv);
       divElement.appendChild(commentsSection);
       divElement.appendChild(commentsDiv); /* Comments div */
