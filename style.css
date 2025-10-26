@@ -60,7 +60,7 @@ footer {
 
 footer p {
     font-weight: bold;
-    font-size: 1vw;
+    font-size: 4vw;
 }
 
 /*Posts*/
@@ -112,6 +112,10 @@ footer p {
     padding: 1rem;
 }
 
+.comments-title {
+    font-weight: bold;
+}
+
 .comments-section {
     display: flex;
     flex-direction: column;
@@ -132,6 +136,10 @@ footer p {
 
 .comment p {
     margin: 0;
+}
+
+.no-comments {
+    font-weight: bold;
 }
 
 /*load more button*/
@@ -178,5 +186,23 @@ footer p {
   box-shadow: 0 0 10px rgba(0,0,0,0.3);
   z-index: 1001;          /* above the overlay */
 }
+
+/* Media queries */
+
+/* Desktop */
+/* Tablet */
+@media (min-width: 768px) {
+    footer p {
+        font-size: 2vw;
+    }
+}
+
+@media (min-width: 1024px) {
+    footer p {
+        font-size: 1vw;
+    }
+}
+
+
 
 
