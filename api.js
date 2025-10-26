@@ -86,7 +86,7 @@ async function fetchUserName(userId) {
     
     return data;
   } catch (error) {
-    console.error("Error fetching name:", error);
+    console.error("Error fetching username:", error);
   }
 }
 
@@ -125,12 +125,19 @@ async function allPostsHtml() {
       bodyElement.textContent = element.body;
       /* Username */
       const userId = element.userId;
-      const userNameButton = document.createElement("button");
-      userNameButton.classList.add("username");
+      const openUsernameModal = document.createElement("button");
+      openUsernameModal.classList.add("open-modal");
+      /* Modal */
+      openUsernameModal.dataset.userid = userId;
       fetchUserName(userId)
         .then(username => {
-          userNameButton.textContent = username;
+          openUsernameModal.textContent = username;
         })
+
+      openUsernameModal.addEventListener("click", (event) => {
+        const id = event.currentTarget.dataset.userid;
+        addUserInfo(id);
+      });
       /* Reactions */
       const reactionsDiv = document.createElement("div");
       reactionsDiv.classList.add("reactions")
@@ -157,15 +164,15 @@ async function allPostsHtml() {
             const commentsElement = document.createElement("p");
             commentsElement.textContent = comment.body;
             /* Username */
-            const commenterButton = document.createElement("button");
-            commenterButton.textContent = comment.user.username;
-            commenterButton.classList.add("username");
+            const openCommenterModal = document.createElement("button");
+            openCommenterModal.textContent = comment.user.username;
+            openCommenterModal.classList.add("open-modal");
             /* Comment reactions */
             const commentReactionsElement = document.createElement("p"); /* Comment element */
             commentReactionsElement.textContent = `👍${comment.likes}`;
             commentReactionsElement.classList.add("comment-reactions");
             /* Appending to comments div */
-            commentDiv.appendChild(commenterButton); /* Username */
+            commentDiv.appendChild(openCommenterModal); /* Username */
             commentDiv.appendChild(commentsElement); /* Comment text */
             commentDiv.appendChild(commentReactionsElement); /* Reactions */
             commentsDiv.appendChild(commentDiv);
@@ -176,7 +183,7 @@ async function allPostsHtml() {
       /* Appending to the object div */
       divElement.appendChild(titleElement);
       divElement.appendChild(bodyElement);
-      divElement.appendChild(userNameButton);
+      divElement.appendChild(openUsernameModal);
       divElement.appendChild(reactionsDiv);
       divElement.appendChild(commentsSection);
       divElement.appendChild(commentsDiv); /* Comments div */
@@ -190,8 +197,111 @@ async function allPostsHtml() {
   }
 }
 
+/* Modal */
+
+async function addUserInfo(userId) {
+  try {
+    const modalContainer = document.getElementsByClassName("modal")[0];
+    const profileObject = await fetchUser(userId);
+
+    // 🧹 Remove old modal content if any (DOM-safe way)
+    while (modalContainer.firstChild) {
+      modalContainer.removeChild(modalContainer.firstChild);
+    }
+
+    // Create inner modal content box
+    const modalContent = document.createElement("div");
+    modalContent.classList.add("modal-content");
+
+    // Image
+    const imageElement = document.createElement("img");
+    imageElement.src = profileObject.image;
+    imageElement.alt = "Cannot display user image";
+    modalContent.appendChild(imageElement);
+
+    // Name
+    const nameElement = document.createElement("p");
+    const nameSpan = document.createElement("span");
+    nameSpan.classList.add("modal-properties")
+    nameSpan.textContent = "Name:";
+    nameElement.appendChild(nameSpan);
+    nameElement.append(` ${profileObject.firstName} ${profileObject.maidenName} ${profileObject.lastName}`)
+    modalContent.appendChild(nameElement);
+
+    // Email
+    const emailElement = document.createElement("p");
+    const emailSpan = document.createElement("span");
+    emailSpan.classList.add("modal-properties")
+    emailSpan.classList.add();
+    emailSpan.textContent = "Email:"
+    emailElement.appendChild(emailSpan);
+    emailElement.append(` ${profileObject.email}`)
+    modalContent.appendChild(emailElement);
+
+    // Phone
+    const phoneElement = document.createElement("p");
+    const phoneSpan = document.createElement("span");
+    phoneSpan.textContent = "Phone:"
+    phoneSpan.classList.add("modal-properties");
+    phoneElement.appendChild(phoneSpan);
+    phoneElement.append(` ${profileObject.phone}`);
+    modalContent.appendChild(phoneElement);
+
+    // Address
+    const addressElement = document.createElement("p");
+    const addressSpan = document.createElement("span");
+    addressSpan.textContent = "Address:";
+    addressSpan.classList.add("modal-properties");
+    addressElement.appendChild(addressSpan);
+    addressElement.append(` ${profileObject.address.address}, ${profileObject.address.city}, ${profileObject.address.stateCode}, ${profileObject.address.postalCode}`);
+    modalContent.appendChild(addressElement);
+
+    // Additional info - birthday
+    const birthdayElement = document.createElement("p"); 
+    const birthdaySpan = document.createElement("span")
+    birthdaySpan.classList.add("modal-properties");
+    birthdaySpan.textContent = "Birthday:";
+    birthdayElement.appendChild(birthdaySpan);
+    birthdayElement.append( ` ${profileObject.birthDate}`);
+    modalContent.appendChild(birthdayElement);
+
+    // Additional info - University
+    const uniElement = document.createElement("p"); 
+    const uniSpan = document.createElement("span")
+    uniSpan.classList.add("modal-properties");
+    uniSpan.textContent = "University:";
+    uniElement.appendChild(uniSpan);
+    uniElement.append( ` ${profileObject.university}`);
+    modalContent.appendChild(uniElement);
+
+    // Add modal content to container
+    modalContainer.appendChild(modalContent);
+
+    // Show the modal (remove hidden class)
+    modalContainer.classList.remove("modal-hidden");
+
+  } catch (error) {
+    console.error("Error fetching the data:", error);
+  }
+}
+
+
+async function profileModal(userId) {
+  try {
+    /* Where the content will go in html */
+    const modalContainer = document.getElementsByClassName("modal")[0];
+    /* Add user infor */
+    const userInfo = await addUserInfo(userId);     
+  } catch (error) {
+    
+  }
+  
+
+}
+
 
 allPostsHtml();
+
 
 
 
