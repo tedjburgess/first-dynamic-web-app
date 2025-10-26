@@ -125,16 +125,16 @@ async function allPostsHtml() {
       bodyElement.textContent = element.body;
       /* Username */
       const userId = element.userId;
-      const openUsernameModal = document.createElement("button");
-      openUsernameModal.classList.add("open-modal");
+      const openCommenterModal = document.createElement("button");
+      openCommenterModal.classList.add("open-modal");
       /* Modal */
-      openUsernameModal.dataset.userid = userId;
+      openCommenterModal.dataset.userid = userId;
       fetchUserName(userId)
         .then(username => {
-          openUsernameModal.textContent = username;
+          openCommenterModal.textContent = username;
         })
 
-      openUsernameModal.addEventListener("click", (event) => {
+      openCommenterModal.addEventListener("click", (event) => {
         const id = event.currentTarget.dataset.userid;
         addUserInfo(id);
       });
@@ -167,6 +167,18 @@ async function allPostsHtml() {
             const openCommenterModal = document.createElement("button");
             openCommenterModal.textContent = comment.user.username;
             openCommenterModal.classList.add("open-modal");
+            // Modal
+            const commenterId = comment.user.id;
+            openCommenterModal.dataset.userid = commenterId;
+            fetchUserName(commenterId)
+              .then(username => {
+                openCommenterModal.textContent = username;
+              })
+
+            openCommenterModal.addEventListener("click", (event) => {
+              const id = event.currentTarget.dataset.userid;
+              addUserInfo(id);
+            });
             /* Comment reactions */
             const commentReactionsElement = document.createElement("p"); /* Comment element */
             commentReactionsElement.textContent = `👍${comment.likes}`;
@@ -183,7 +195,7 @@ async function allPostsHtml() {
       /* Appending to the object div */
       divElement.appendChild(titleElement);
       divElement.appendChild(bodyElement);
-      divElement.appendChild(openUsernameModal);
+      divElement.appendChild(openCommenterModal);
       divElement.appendChild(reactionsDiv);
       divElement.appendChild(commentsSection);
       divElement.appendChild(commentsDiv); /* Comments div */
@@ -232,7 +244,6 @@ async function addUserInfo(userId) {
     const emailElement = document.createElement("p");
     const emailSpan = document.createElement("span");
     emailSpan.classList.add("modal-properties")
-    emailSpan.classList.add();
     emailSpan.textContent = "Email:"
     emailElement.appendChild(emailSpan);
     emailElement.append(` ${profileObject.email}`)
@@ -301,6 +312,21 @@ async function profileModal(userId) {
 
 
 allPostsHtml();
+
+// Close modal when clicking outside the box
+document.addEventListener("click", (event) => {
+  const modal = document.querySelector(".modal");
+  const modalContent = document.querySelector(".modal-content");
+
+  if (
+    modal &&
+    !modal.classList.contains("modal-hidden") &&
+    modal.contains(event.target) &&
+    !modalContent.contains(event.target)
+  ) {
+    modal.classList.add("modal-hidden");
+  }
+});
 
 
 
