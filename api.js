@@ -153,9 +153,22 @@ async function allPostsHtml() {
       /* Comment section div */
       const commentsDiv = document.createElement("div");
       commentsDiv.classList.add("comments-section");
-      commentsDiv.textContent = `Comments:`
+      const commentsSpan = document.createElement("span");
+      commentsSpan.classList.add("comments-title");
+      commentsSpan.textContent = `Comments:`
+      commentsDiv.appendChild(commentsSpan);
+      // Fetching post comments
       fetchComments(postId)
         .then(commentObject => {
+          // If there are no comments
+          if (!commentObject.comments?.length) {
+            const noComments = document.createElement("p");
+            noComments.classList.add("no-comments");
+            noComments.textContent = "No comments available.";
+            commentsDiv.appendChild(noComments);
+            return;
+          }          
+          
           commentObject.comments.forEach(comment => {
             /* Comment div */
             const commentDiv = document.createElement("div");
