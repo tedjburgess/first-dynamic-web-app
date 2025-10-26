@@ -12,7 +12,7 @@ function highlightActive() {
 
 }
 // Adds header to each page
-function addNavigation() {
+function addHeader() {
   const spot = document.getElementsByTagName('header');
   const getHeader = spot[0];
 
@@ -26,6 +26,21 @@ function addNavigation() {
     </nav>`;
 }
 
-addNavigation();
+function addFooter() {
+  const spot = document.getElementsByTagName("footer");
+  const getFooter = spot[0];
+  // Copyright info
+  const copyright = document.createElement("p");
+  copyright.textContent = "Copyright © 2025 Burgess Enterprises";
+  getFooter.appendChild(copyright);
+  // Rights info
+  const rights = document.createElement("p");
+  rights.textContent = "All rights reserved";
+  getFooter.appendChild(rights);
+
+}
+
+addHeader();
+addFooter();
 highlightActive();
 
