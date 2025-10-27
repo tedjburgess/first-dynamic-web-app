@@ -9,24 +9,10 @@ function loadMorePosts() {
 
 document.getElementById("load-more").addEventListener("click", loadMorePosts);
 
-async function fetchPost(postId) {
-  try {
-    // Use template literals instead of concat()
-    const url = `https://dummyjson.com/posts/${postId}`;
-
-    const response = await fetch(url);   // fetch waits for the response
-    const data = await response.json();  // parse JSON
-
-    console.log(data);                   // display the post in console
-    return data;                         // optionally return it for later use
-  } catch (error) {
-    console.error("Error fetching post:", error);
-  }
-}
 
 async function fetchAllPosts(limit = 10, skip = 0) {
   try {
-    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId,body,tags`; /*change back if needed 'https://dummyjson.com/posts'*/
+    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId,body,tags`; 
 
     const response = await fetch(url);
     const data = await response.json();
@@ -46,19 +32,6 @@ async function fetchComments(postId) {
     const data = await response.json();
 
     console.log(data);
-    return data;
-  } catch (error) {
-    console.error("Error fetching comment:", error);
-  }
-}
-
-async function fetchAllComments() {
-  try {
-    const url = `https://dummyjson.com/comments`;
-
-    const response = await fetch(url);
-    const data = await response.json();
-
     return data;
   } catch (error) {
     console.error("Error fetching comments:", error);
@@ -90,22 +63,6 @@ async function fetchUserName(userId) {
     console.error("Error fetching username:", error);
   }
 }
-
-async function fetchPostInfo(postId) {
-  try {
-    const postObject = await fetchPost(postId);
-    
-    return {
-      title: postObject.title,
-      body: postObject.body,
-      tags: postObject.tags,
-      reactions: postObject.reactions
-    };
-  } catch (error) {
-    console.error("Error fetching name:", error);
-  }
-}
-
 
 async function allPostsHtml() {
   try {
@@ -146,10 +103,8 @@ async function allPostsHtml() {
       tagsTitle.textContent = 'Tags:';
       tagsDiv.appendChild(tagsTitle);
       tagsDiv.classList.add("tags-div");
-      console.log("TAGS FOR", element.id, element.tags); //TEMPORARY
       const tagsArray = element.tags ?? [];
-
-      
+      // Goes through the array of tags
       tagsArray.forEach((tag) => {
         const tagP = document.createElement("p");
         tagP.textContent = tag;
@@ -323,7 +278,7 @@ async function addUserInfo(userId) {
     modalContainer.classList.remove("modal-hidden");
 
   } catch (error) {
-    console.error("Error fetching the data:", error);
+    console.error("Error fetching modal data:", error);
   }
 }
 
@@ -343,11 +298,4 @@ document.addEventListener("click", (event) => {
     modal.classList.add("modal-hidden");
   }
 });
-
-
-
-
-
-
-
 

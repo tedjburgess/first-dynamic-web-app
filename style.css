@@ -189,14 +189,14 @@ footer p {
 
 .modal {
   position: fixed;
-  inset: 0;               /* top:0; right:0; bottom:0; left:0 */
+  inset: 0;               
   background: rgba(0,0,0,0.5);
   z-index: 1000;
 }
 
 /* The white box */
 .modal-content {
-  position: fixed;        /* key difference: we position the box itself */
+  position: fixed;        
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);  /* perfect center */
