@@ -1,0 +1,5 @@
+{
+    "javascript.implicitProjectConfig.checkJs": true,
+    "typescript.implicitProjectConfig.checkJs": true,
+    "javascript.suggestionActions.enabled": true
+}

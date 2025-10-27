@@ -52,7 +52,7 @@ function addFooter() {
   getFooter.appendChild(copyright);
   // Rights info
   const rights = document.createElement("p");
-  rights.textContent = "All rights reserved";
+  rights.textContent = "All rights reserved.";
   getFooter.appendChild(rights);
 
 }
@@ -64,9 +64,11 @@ function formHandling() {
   const confirmCheckbox = document.getElementById('confirm');
   const sendButton = document.getElementById('sendBtn');
 
-  confirmCheckbox.addEventListener('change', () => {
-    sendButton.disabled = !confirmCheckbox.checked;
-  });
+  if (confirmCheckbox) {
+    confirmCheckbox.addEventListener('change', () => {
+      sendButton.disabled = !confirmCheckbox.checked;
+    });
+  }
   // Making sure the page doesn't refresh before inputs are validated
   form.addEventListener('submit', (e) => {
     e.preventDefault();
