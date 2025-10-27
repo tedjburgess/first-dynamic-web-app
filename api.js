@@ -9,20 +9,6 @@ function loadMorePosts() {
 
 document.getElementById("load-more").addEventListener("click", loadMorePosts);
 
-async function fetchPost(postId) {
-  try {
-    // Use template literals instead of concat()
-    const url = `https://dummyjson.com/posts/${postId}`;
-
-    const response = await fetch(url);   // fetch waits for the response
-    const data = await response.json();  // parse JSON
-
-    console.log(data);                   // display the post in console
-    return data;                         // optionally return it for later use
-  } catch (error) {
-    console.error("Error fetching post:", error);
-  }
-}
 
 async function fetchAllPosts(limit = 10, skip = 0) {
   try {
@@ -52,19 +38,6 @@ async function fetchComments(postId) {
   }
 }
 
-async function fetchAllComments() {
-  try {
-    const url = `https://dummyjson.com/comments`;
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    return data;
-  } catch (error) {
-    console.error("Error fetching comments:", error);
-  }
-}
-
 async function fetchUser(userId) {
   try {
     const url = `https://dummyjson.com/users/${userId}`;
@@ -90,22 +63,6 @@ async function fetchUserName(userId) {
     console.error("Error fetching username:", error);
   }
 }
-
-async function fetchPostInfo(postId) {
-  try {
-    const postObject = await fetchPost(postId);
-    
-    return {
-      title: postObject.title,
-      body: postObject.body,
-      tags: postObject.tags,
-      reactions: postObject.reactions
-    };
-  } catch (error) {
-    console.error("Error fetching name:", error);
-  }
-}
-
 
 async function allPostsHtml() {
   try {
