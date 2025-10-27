@@ -1,6 +1,7 @@
 let currentSkip = 0;
 const limit = 10;
 
+// Loads more posts
 function loadMorePosts() {
   currentSkip += limit;
   allPostsHtml();
@@ -25,7 +26,7 @@ async function fetchPost(postId) {
 
 async function fetchAllPosts(limit = 10, skip = 0) {
   try {
-    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId,body`; /*change back if needed 'https://dummyjson.com/posts'*/
+    const url = `https://dummyjson.com/posts?limit=${limit}&skip=${skip}&select=title,reactions,userId,body,tags`; /*change back if needed 'https://dummyjson.com/posts'*/
 
     const response = await fetch(url);
     const data = await response.json();
@@ -138,6 +139,22 @@ async function allPostsHtml() {
         const id = event.currentTarget.dataset.userid;
         addUserInfo(id);
       });
+      // Tags
+      const tagsDiv = document.createElement("div");
+      const tagsTitle = document.createElement('p');
+      tagsTitle.classList.add('tags-title')
+      tagsTitle.textContent = 'Tags:';
+      tagsDiv.appendChild(tagsTitle);
+      tagsDiv.classList.add("tags-div");
+      console.log("TAGS FOR", element.id, element.tags); //TEMPORARY
+      const tagsArray = element.tags ?? [];
+
+      
+      tagsArray.forEach((tag) => {
+        const tagP = document.createElement("p");
+        tagP.textContent = tag;
+        tagsDiv.appendChild(tagP);
+      });
       /* Reactions */
       const reactionsDiv = document.createElement("div");
       reactionsDiv.classList.add("reactions")
@@ -209,6 +226,7 @@ async function allPostsHtml() {
       divElement.appendChild(titleElement);
       divElement.appendChild(bodyElement);
       divElement.appendChild(openCommenterModal);
+      divElement.appendChild(tagsDiv);
       divElement.appendChild(reactionsDiv);
       divElement.appendChild(commentsSection);
       divElement.appendChild(commentsDiv); /* Comments div */
@@ -308,21 +326,6 @@ async function addUserInfo(userId) {
     console.error("Error fetching the data:", error);
   }
 }
-
-
-async function profileModal(userId) {
-  try {
-    /* Where the content will go in html */
-    const modalContainer = document.getElementsByClassName("modal")[0];
-    /* Add user infor */
-    const userInfo = await addUserInfo(userId);     
-  } catch (error) {
-    
-  }
-  
-
-}
-
 
 allPostsHtml();
 

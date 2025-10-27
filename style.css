@@ -110,6 +110,16 @@ footer p {
     color: darkblue;
 }
 
+.tags-div {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.tags-title {
+    font-weight: bold;
+}
+
 .reactions {
     display: flex;
     gap: 0.5rem;
