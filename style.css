@@ -35,17 +35,29 @@ header div {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    padding: 1rem;
     align-items: center;
     margin: 4vw;
 }
 
-main h1 {
+#home-title {
+    display: flex;
+    justify-content: center;
+}
+
+#title-text {
     color: navy
+}
+
+.home-text {
+    padding: 1rem;
 }
 
 .media-image {
     max-width: 100%;
     height: auto;
+    padding: 1rem;
+    border-radius: 50%;
 }
 
 footer {
@@ -211,17 +223,29 @@ form {
 
 /* Media queries */
 
-/* Desktop */
 /* Tablet */
 @media (min-width: 768px) {
     footer p {
         font-size: 2vw;
     }
 }
-
+/* Desktop */
 @media (min-width: 1024px) {
     footer p {
         font-size: 1vw;
+    }
+
+    .media-image {
+        width: 50%;
+    }
+
+    .home-main {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .home-text {
+        flex: 1;
     }
 }
 
