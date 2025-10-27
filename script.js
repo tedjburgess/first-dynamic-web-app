@@ -1,4 +1,3 @@
-
 // Highlights active link automatically
 function highlightActive() {
   const currentPage = window.location.pathname.split("/").pop();
@@ -43,6 +42,7 @@ function addHeader() {
   navList.appendChild(navContact);
 }
 
+// Adds footer to every page
 function addFooter() {
   const spot = document.getElementsByTagName("footer");
   const getFooter = spot[0];
@@ -56,8 +56,52 @@ function addFooter() {
   getFooter.appendChild(rights);
 
 }
+function formHandling() {
+  // Selecting elements from contact.html
+  const form = document.querySelector('form');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const confirmCheckbox = document.getElementById('confirm');
+  const sendButton = document.getElementById('sendBtn');
+
+  confirmCheckbox.addEventListener('change', () => {
+    sendButton.disabled = !confirmCheckbox.checked;
+  });
+  // Making sure the page doesn't refresh before inputs are validated
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+  
+    // Trimming inputs of whitespace
+    const nameValue = nameInput.value.trim();
+    const emailValue = emailInput.value.trim();
+    // Name validation - Doesn't contain numbers
+    if (/\d/.test(nameValue)) {
+      alert('Name must not contain numbers');
+      return;
+    }
+    // Email validation - Includes @ and .
+    if (!emailValue.includes('@') || !emailValue.includes('.')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    // Checkbox validation - Box must be checked
+    if (!confirmCheckbox.checked) {
+    alert('Please confirm to send.');
+    return;
+    }
+    // Everything is valid
+    alert('Form submitted successfully!');
+
+    // Reset form
+    form.reset();
+    sendButton.disabled = true;
+  })
+  
+
+}
 
 addHeader();
 addFooter();
 highlightActive();
+formHandling();
 

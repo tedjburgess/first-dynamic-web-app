@@ -187,6 +187,28 @@ footer p {
   z-index: 1001;          /* above the overlay */
 }
 
+/* Contact */
+.contact-body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-main {
+    flex: 1;
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
 /* Media queries */
 
 /* Desktop */
